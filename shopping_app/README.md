@@ -14,3 +14,15 @@ Sample Shopping App
 - Be creative while designing the screen
 
 ## Solution - 
+
+<div>
+<img src="./screenshot_category_list.png" width="100">
+   
+<img src="./screenshot_product_list.png" width="100">
+
+<img src="./screenshot_product_details.png" width="100">
+
+<img src="./screenshot_search_hints.png" width="100">
+
+<img src="./screenshot_search_results.png" width="100">
+</div>
