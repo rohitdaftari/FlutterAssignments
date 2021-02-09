@@ -2,15 +2,15 @@
 
 Sample Shopping App 
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+## Problem -
+- Create an app showing multiple categories of products.
+- Select a category and jump to the next screen and show the list of products, users can search by typing name on both screens.
+- On the product list there will be an image and below show basic details of product. If the user clicks on the image in the next screen the user can see full details of the product.
 
-A few resources to get you started if this is your first Flutter project:
+## Notes
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+- Implement using provider state management. 
+- Be creative while designing the screen
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Solution - 
