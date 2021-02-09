@@ -3,9 +3,9 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:shopping_app/providers/product_provider.dart';
 
-class ProductFullDetails extends StatelessWidget {
+class ProductDetails extends StatelessWidget {
   final String productId;
-  ProductFullDetails(this.productId);
+  ProductDetails(this.productId);
   @override
   Widget build(BuildContext context) {
     final loadedProduct = Provider.of<ProductProvider>(context);

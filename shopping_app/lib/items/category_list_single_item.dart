@@ -5,15 +5,18 @@ class GridSingleItem extends StatelessWidget {
   final String title;
   final String imgUrl;
   GridSingleItem(this.title, this.imgUrl);
+
+  void navigateToProductList(BuildContext context) {
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => ProductList(
+              title: title,
+            )));
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => ProductList(
-                  title: title,
-                )));
-      },
+      onTap: () => navigateToProductList(context),
       child: Card(
         elevation: 10,
         margin: EdgeInsets.all(10),
@@ -30,7 +33,7 @@ class GridSingleItem extends StatelessWidget {
               Center(
                   child: Text(
                 title,
-                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
               )),
             ],
           ),
