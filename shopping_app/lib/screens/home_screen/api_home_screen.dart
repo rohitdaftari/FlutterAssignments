@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
+import 'package:shopping_app/providers/super_hero_provider.dart';
 
 class ApiHomeScreen extends StatefulWidget {
   const ApiHomeScreen({Key key}) : super(key: key);
@@ -13,6 +15,7 @@ class ApiHomeScreen extends StatefulWidget {
 class _ApiHomeScreenState extends State<ApiHomeScreen> {
   TextEditingController _controller = TextEditingController();
   bool isLoading = false;
+  bool isInit = true;
   Map responseMap;
   Future fetchData(int id) async {
     http.Response response;
@@ -24,6 +27,24 @@ class _ApiHomeScreenState extends State<ApiHomeScreen> {
         print(responseMap);
       });
     }
+  }
+
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    if (isInit) {
+      setState(() {
+        isLoading = true;
+      });
+
+      Provider.of<SuperHeroProvider>(context)
+          .fetchSupersHero("batman")
+          .then((_) => setState(() {
+                isLoading = false;
+              }));
+    }
+    isInit = false;
+    super.didChangeDependencies();
   }
 
   @override
@@ -104,7 +125,12 @@ class _ApiHomeScreenState extends State<ApiHomeScreen> {
                   fetchData(int.parse(_controller.text));
                 },
               ),
-            )
+            ),
+            isLoading
+                ? Container(
+                    child: CircularProgressIndicator(),
+                  )
+                : Container()
           ],
         ),
       ),
