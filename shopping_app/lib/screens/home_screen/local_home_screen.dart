@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:shopping_app/items/category_list_single_item.dart';
 import 'package:shopping_app/items/data_search.dart';
 import 'package:shopping_app/models/dummy_data.dart';
-import 'package:shopping_app/screens/home_screen/api_home_screen.dart';
 import '../../items/home_screen_top_component.dart';
 
 class LocalHomeScreen extends StatelessWidget {

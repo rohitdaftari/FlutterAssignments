@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
+import 'package:shopping_app/items/search_by_name_list_widget.dart';
+import 'package:shopping_app/providers/product_provider.dart';
 import 'package:shopping_app/providers/super_hero_provider.dart';
 
 class ApiHomeScreen extends StatefulWidget {
@@ -16,34 +18,61 @@ class _ApiHomeScreenState extends State<ApiHomeScreen> {
   TextEditingController _controller = TextEditingController();
   bool isLoading = false;
   bool isInit = true;
+  bool isSearchingByName = false;
   Map responseMap;
+
   Future fetchData(int id) async {
+    setState(() {
+      isLoading = true;
+      isSearchingByName = false;
+    });
     http.Response response;
     response = await http
         .get("https://www.superheroapi.com/api.php/3101680079935001/$id");
     if (response.statusCode == 200) {
       setState(() {
         responseMap = jsonDecode(response.body);
+        isLoading = false;
         print(responseMap);
       });
     }
   }
 
+  Future<void> searchByName(String name) async {
+    setState(() {
+      isLoading = true;
+      isSearchingByName = true;
+    });
+    await Provider.of<SuperHeroProvider>(context, listen: false)
+        .fetchSupersHerobyName(name)
+        .then((_) => setState(() {
+              isLoading = false;
+              isSearchingByName = false;
+            }));
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   @override
   void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
     if (isInit) {
       setState(() {
         isLoading = true;
+        isSearchingByName = true;
       });
 
       Provider.of<SuperHeroProvider>(context)
-          .fetchSupersHero("batman")
+          .fetchSupersHerobyName("spider")
           .then((_) => setState(() {
                 isLoading = false;
+                isSearchingByName = false;
               }));
     }
     isInit = false;
+
     super.didChangeDependencies();
   }
 
@@ -65,7 +94,7 @@ class _ApiHomeScreenState extends State<ApiHomeScreen> {
           children: [
             Container(
               alignment: Alignment.topLeft,
-              margin: EdgeInsets.only(left: 10, top: 100),
+              margin: EdgeInsets.only(left: 20, top: 100),
               child: Text(
                 "Hey Superhero !",
                 style: TextStyle(
@@ -76,10 +105,10 @@ class _ApiHomeScreenState extends State<ApiHomeScreen> {
             ),
             Container(
               alignment: Alignment.topLeft,
-              margin: EdgeInsets.only(left: 10),
+              margin: EdgeInsets.only(left: 20),
               child: Text(
                 responseMap == null
-                    ? "Type random  Superhero id as Number"
+                    ? "Type random  Superhero \nNumber / Name"
                     : "Your Superhero => " + responseMap['name'],
                 style: TextStyle(
                     color: Colors.white,
@@ -117,7 +146,7 @@ class _ApiHomeScreenState extends State<ApiHomeScreen> {
                     borderRadius: BorderRadius.circular(10)),
                 child: Align(
                   child: Text(
-                    'Get Superhero',
+                    'Get Superhero by ID',
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
@@ -126,11 +155,34 @@ class _ApiHomeScreenState extends State<ApiHomeScreen> {
                 },
               ),
             ),
+            Container(
+              margin: EdgeInsets.all(20),
+              child: MaterialButton(
+                padding: EdgeInsets.all(20),
+                color: Colors.blue,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
+                child: Align(
+                  child: Text(
+                    'Search Superheros by Name',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+                onPressed: () {
+                  searchByName(_controller.text);
+                },
+              ),
+            ),
             isLoading
                 ? Container(
                     child: CircularProgressIndicator(),
                   )
-                : Container()
+                : Container(),
+            !isSearchingByName
+                ? SearchbyNameListWidget()
+                : Container(
+                    height: 100,
+                  )
           ],
         ),
       ),
