@@ -5,7 +5,6 @@ import 'package:shopping_app/models/dummy_data.dart';
 import '../../items/home_screen_top_component.dart';
 
 class LocalHomeScreen extends StatelessWidget {
-  //final List<Widget> pageList = [ApiHomeScreen(), HomeScreen()];
   final categoriesList = DUMMY_CATEGORIES.toList();
 
   @override

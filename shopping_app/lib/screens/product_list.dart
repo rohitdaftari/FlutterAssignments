@@ -6,6 +6,7 @@ import 'package:shopping_app/providers/product_provider.dart';
 
 class ProductList extends StatelessWidget {
   final String title;
+
   ProductList({this.title});
   @override
   Widget build(BuildContext context) {

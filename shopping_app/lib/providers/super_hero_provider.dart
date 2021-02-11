@@ -10,9 +10,6 @@ class SuperHeroProvider with ChangeNotifier {
     return [...heros];
   }
 
-  String errorMessage;
-  bool loading = false;
-
   Future fetchSupersHerobyName(String name) async {
     String url =
         "https://www.superheroapi.com/api.php/3101680079935001/search/$name";
@@ -32,10 +29,7 @@ class SuperHeroProvider with ChangeNotifier {
       });
       print(loadedSearch);
       itemHero = loadedSearch;
-      print("ITEM HERO : " + itemHero[0].name.toString());
       notifyListeners();
-      //print(superhero);
-      //print(jsonDecode(response.body));
     } catch (error) {
       throw (error.toString());
     }

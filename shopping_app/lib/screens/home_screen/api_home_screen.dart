@@ -1,10 +1,8 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:shopping_app/items/search_by_name_list_widget.dart';
-import 'package:shopping_app/providers/product_provider.dart';
 import 'package:shopping_app/providers/super_hero_provider.dart';
 
 class ApiHomeScreen extends StatefulWidget {
@@ -63,7 +61,6 @@ class _ApiHomeScreenState extends State<ApiHomeScreen> {
         isLoading = true;
         isSearchingByName = true;
       });
-
       Provider.of<SuperHeroProvider>(context)
           .fetchSupersHerobyName("spider")
           .then((_) => setState(() {
@@ -72,7 +69,6 @@ class _ApiHomeScreenState extends State<ApiHomeScreen> {
               }));
     }
     isInit = false;
-
     super.didChangeDependencies();
   }
 
@@ -178,11 +174,7 @@ class _ApiHomeScreenState extends State<ApiHomeScreen> {
                     child: CircularProgressIndicator(),
                   )
                 : Container(),
-            !isSearchingByName
-                ? SearchbyNameListWidget()
-                : Container(
-                    height: 100,
-                  )
+            !isSearchingByName ? SearchbyNameListWidget() : Container()
           ],
         ),
       ),

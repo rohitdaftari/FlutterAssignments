@@ -6,6 +6,7 @@ import 'package:shopping_app/providers/product_provider.dart';
 class ProductDetails extends StatelessWidget {
   final String productId;
   ProductDetails(this.productId);
+
   @override
   Widget build(BuildContext context) {
     final loadedProduct = Provider.of<ProductProvider>(context);
