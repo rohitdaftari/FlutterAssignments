@@ -16,13 +16,10 @@ class SuperHeroProvider with ChangeNotifier {
     try {
       final http.Response response = await http.get(url);
       Map<String, dynamic> yieldData = json.decode(response.body);
-      //print(yieldData);
       final List<dynamic> listSuperhero = yieldData['results'];
       final List<Superhero> loadedSearch = [];
       print("Search Result Lenght : " + listSuperhero.length.toString());
       listSuperhero.forEach((superHero) {
-        print(superHero['id']);
-        print(superHero['name']);
         loadedSearch.add(Superhero(
             id: superHero['id'].toString(),
             name: superHero['name'].toString()));

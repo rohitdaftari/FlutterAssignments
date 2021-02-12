@@ -8,12 +8,14 @@ class ProductList extends StatelessWidget {
   final String title;
 
   ProductList({this.title});
+
   @override
   Widget build(BuildContext context) {
     final productsData = Provider.of<ProductProvider>(context);
     final products = productsData.items
         .where((element) => element.category.contains(title))
         .toList();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
@@ -22,7 +24,7 @@ class ProductList extends StatelessWidget {
           child: ListView.builder(
               itemCount: products.length,
               shrinkWrap: true,
-              itemBuilder: (ctx, i) => ProductSingleList(
+              itemBuilder: (ctx, i) => ProductSingleListItem(
                   products[i].id, products[i].title, products[i].image))),
     );
   }
