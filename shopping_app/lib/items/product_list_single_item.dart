@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_app/screens/product_details.dart';
 
-class ProductSingleList extends StatelessWidget {
+class ProductSingleListItem extends StatelessWidget {
   final String productId;
   final String title;
   final String imgUrl;
-  ProductSingleList(this.productId, this.title, this.imgUrl);
+
+  ProductSingleListItem(this.productId, this.title, this.imgUrl);
 
   void navigateToProductDetails(BuildContext context) {
     Navigator.of(context).push(
