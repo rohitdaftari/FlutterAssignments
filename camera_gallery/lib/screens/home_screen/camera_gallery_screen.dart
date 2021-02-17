@@ -1,7 +1,43 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
 
-class CameraGalleryScreen extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+
+class CameraGalleryScreen extends StatefulWidget {
   const CameraGalleryScreen({Key key}) : super(key: key);
+
+  @override
+  _CameraGalleryScreenState createState() => _CameraGalleryScreenState();
+}
+
+class _CameraGalleryScreenState extends State<CameraGalleryScreen> {
+  File _image;
+
+  final picker = ImagePicker();
+
+  Future getImageFromGalley() async {
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+      } else {
+        print('No image selected.');
+      }
+    });
+  }
+
+  Future getImageFromCamera() async {
+    final pickedFile = await picker.getImage(source: ImageSource.camera);
+
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+      } else {
+        print('No image selected.');
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -10,8 +46,10 @@ class CameraGalleryScreen extends StatelessWidget {
         body: Container(
           decoration: BoxDecoration(
               image: DecorationImage(
-            image: NetworkImage(
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRG-PADUvE9v_cIHNZyUN4A4ZqlDv7-eMGjkw&usqp=CAU"),
+            image: _image == null
+                ? NetworkImage(
+                    "https://i.pinimg.com/originals/e5/89/95/e5899572ecace2b0895b36db7703a001.gif")
+                : FileImage(_image),
             fit: BoxFit.cover,
           )),
           child: Column(children: [
@@ -21,7 +59,7 @@ class CameraGalleryScreen extends StatelessWidget {
             Row(
               children: [
                 RaisedButton(
-                  onPressed: () => {},
+                  onPressed: getImageFromCamera,
                   child: Text("Take Picture from Camera"),
                 )
               ],
@@ -30,7 +68,7 @@ class CameraGalleryScreen extends StatelessWidget {
             Row(
               children: [
                 RaisedButton(
-                  onPressed: () => {},
+                  onPressed: getImageFromGalley,
                   child: Text("Choose from Gallery"),
                 )
               ],

@@ -26,6 +26,12 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>To select background image from Gallery</string>
+	<key>NSCameraUsageDescription</key>
+	<string>To select background image from Camera</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Camera wants to use microphone</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
