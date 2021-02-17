@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 class ProgressLoaderScreen extends StatefulWidget {
@@ -8,7 +10,20 @@ class ProgressLoaderScreen extends StatefulWidget {
 }
 
 class _ProgressLoaderScreenState extends State<ProgressLoaderScreen> {
-  final Duration duration = Duration(seconds: 3);
+  bool isVisible = false;
+
+  void loaderOperation() {
+    setState(() {
+      isVisible = true;
+      Future.delayed(Duration(seconds: 3), turnOffLoader);
+    });
+  }
+
+  void turnOffLoader() {
+    setState(() {
+      isVisible = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +37,12 @@ class _ProgressLoaderScreenState extends State<ProgressLoaderScreen> {
           child: Column(
             children: [
               Center(
-                child: RaisedButton(
-                    child: Text("Start Progress Loader"), onPressed: () => {}),
-              ),
-              CircularProgressIndicator(),
+                  child: ElevatedButton(
+                child: Text("Start Progress Loader"),
+                onPressed: loaderOperation,
+              )),
+              Visibility(
+                  visible: isVisible, child: CircularProgressIndicator()),
             ],
           ),
         ),

@@ -12,7 +12,6 @@ class CameraGalleryScreen extends StatefulWidget {
 
 class _CameraGalleryScreenState extends State<CameraGalleryScreen> {
   File _image;
-
   final picker = ImagePicker();
 
   Future getImageFromGalley() async {
@@ -21,8 +20,6 @@ class _CameraGalleryScreenState extends State<CameraGalleryScreen> {
     setState(() {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
-      } else {
-        print('No image selected.');
       }
     });
   }
@@ -33,8 +30,6 @@ class _CameraGalleryScreenState extends State<CameraGalleryScreen> {
     setState(() {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
-      } else {
-        print('No image selected.');
       }
     });
   }
@@ -58,7 +53,7 @@ class _CameraGalleryScreenState extends State<CameraGalleryScreen> {
             ),
             Row(
               children: [
-                RaisedButton(
+                ElevatedButton(
                   onPressed: getImageFromCamera,
                   child: Text("Take Picture from Camera"),
                 )
@@ -67,7 +62,7 @@ class _CameraGalleryScreenState extends State<CameraGalleryScreen> {
             ),
             Row(
               children: [
-                RaisedButton(
+                ElevatedButton(
                   onPressed: getImageFromGalley,
                   child: Text("Choose from Gallery"),
                 )
