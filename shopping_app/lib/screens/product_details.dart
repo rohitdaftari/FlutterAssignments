@@ -1,16 +1,19 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
+import 'package:shopping_app/items/product_details_items/product_details_buttons.dart';
 import 'package:shopping_app/providers/product_provider.dart';
 
 class ProductDetails extends StatelessWidget {
   final String productId;
   ProductDetails(this.productId);
-  @override
+
   Widget build(BuildContext context) {
     final loadedProduct = Provider.of<ProductProvider>(context);
     final singleProduct =
         loadedProduct.items.firstWhere((element) => element.id == productId);
+
     return Scaffold(
       body: Container(
         child: Column(
@@ -18,13 +21,18 @@ class ProductDetails extends StatelessWidget {
             Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height * 0.5,
-              child: Image(
-                image: NetworkImage(singleProduct.image),
+              child: CachedNetworkImage(
+                imageUrl: singleProduct.image,
+                placeholder: (_, error) => Container(
+                    width: 50,
+                    height: 50,
+                    child: Center(child: CircularProgressIndicator())),
                 fit: BoxFit.cover,
               ),
               color: Colors.green,
             ),
             SingleChildScrollView(
+              scrollDirection: Axis.vertical,
               child: Container(
                 height: MediaQuery.of(context).size.height * 0.5,
                 child: Column(
@@ -126,58 +134,7 @@ class ProductDetails extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 20.0),
-                        child: Row(
-                          children: [
-                            Container(
-                              height: 60,
-                              color: Colors.yellow,
-                              child: FlatButton(
-                                onPressed: () {},
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Icon(Icons.shopping_cart),
-                                    ),
-                                    Text("Add To Cart")
-                                  ],
-                                ),
-                              ),
-                              width: MediaQuery.of(context).size.width * 0.5,
-                            ),
-                            Container(
-                              height: 60,
-                              color: Colors.black,
-                              child: FlatButton(
-                                onPressed: () {},
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Icon(
-                                        Icons.show_chart,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    Text(
-                                      "BUY NOW",
-                                      style: TextStyle(color: Colors.white),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              width: MediaQuery.of(context).size.width * 0.5,
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
+                    ProductDetailsButtons()
                   ],
                 ),
               ),
